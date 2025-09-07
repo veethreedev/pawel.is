@@ -63,7 +63,15 @@ zpl_data_command_keys = [
 	"fish_size",
 	"fish_age",
 	"fish_weight",
-	"tub_id"
+	"all_tub_id",
+	"sell_date",
+	"land_date",
+	"lot_id",
+	"tub_id",
+	"sl",
+	"tub_count",
+	"market",
+	"idk",
 ]
 
 // Key bindings
@@ -129,14 +137,21 @@ function construct_data_array() {
 			keys = zpl_data_command_keys
 		}
         let lot_data = $(this).attr("data-command").split( delimiter )
+		// console.log( lot_data )
 
 
         keys.forEach(function(item, index) {
-			if ( using_zpl && item == "ship_name" ) {
-				const parts = lot_data[ index ].split(/(?<=\d)(?=\D)/);	
-				data[ lot_index ][ "ship_id" ] = parts[0]
-				lot_data[ index ] = parts[ 1 ]
+			if ( using_zpl ) {
+				if ( item == "ship_name" ) {
+					const parts = lot_data[ index ].split(/(?<=\d)(?=\D)/);	
+					data[ lot_index ][ "ship_id" ] = parts[0]
+					lot_data[ index ] = parts[ 1 ]
+				} else if ( item == "buyer_id" ) {
+					const id = lot_data[ index ].match(/\d+$/)[0];
+					lot_data[ index ] = id
+				}
 			}
+
 			if ( lot_data[ index ] ) {
 				data[lot_index][item] = lot_data[index].replace( "^FS", "" )
 			}
@@ -226,7 +241,12 @@ function uncheck_all(_clear_alert=true) {
 function select_by_tub_id() {
     uncheck_all()
     data.forEach(function(lot, index) {
-        if ( lot[ "tub_id" ] && lot["tub_id"].length > 0) {
+		let limit = 0
+		if ( use_zpl ) {
+			limit = 8
+		}
+        if ( lot[ "tub_id" ] && lot["tub_id"].length > 0 ) {
+			console.log( lot[ "tub_id" ], lot[ "buyer_id" ] )
             check_lot(index, true)
         } 
     })
