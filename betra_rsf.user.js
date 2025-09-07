@@ -7,7 +7,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @require      http://code.jquery.com/jquery-latest.js
-// @downloadURL  https://raw.githubusercontent.com/veethree/Betra_rsf/master/betra_rsf_EXPERIMENTAL.js
+// @downloadURL  https://www.pawel.is/betra_rsf.user.js
 // ==/UserScript==
 
 // Elements with the following Selectors will be hidden once the page loads.
