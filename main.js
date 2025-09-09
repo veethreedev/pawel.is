@@ -9,6 +9,12 @@
 //     })
 // }
 
+const VERSION = 1.3
+
+function on_mobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // Random average
 function random(min, max) {
     return Math.random() * (max - min) + min;
@@ -66,7 +72,7 @@ function generate_key_pad() {
             ["1", "2", "3", "-"],
             ["0", ".", "="]
         ]
-        let button = '<button id="key_ID" type="button" class="p-3 btn btn-primary text-dark btn-block btn-lg border border-dark">TEXT</button>'
+        let button = '<button id="key_ID" type="button" class="p-4 btn btn-dark btn-block btn-lg border border-dark">TEXT</button>'
 
         let keypad_html = "<div id='key_pad' class='bg-dark p-0'>"
         let row_id = 0
@@ -132,13 +138,13 @@ function show_list(list) {
         list[0] = "Nothing to see here..."
     } 
     for (let i=list.length - 1; i>=0; i--) {
-        $("#list").append('<li class="list-group-item bg-dark text-light border-light">' + list[i] + '</li>')
+        $("#list").append('<li class="list_item list-group-item bg-dark text-light border-light">' + list[i] + '</li>')
     }
     $("#back").removeClass("d-none")
 }
 
 function hide_list() {
-    $("li").remove()
+    $(".list_item").remove()
     $("#back").addClass("d-none")
 
 }
@@ -160,8 +166,10 @@ $(document).ready(function() {
 
     generate_key_pad()
 
+	print_comment( "Culator v" + VERSION )
+
     // Disabling some buttons
-    //$("#key_random_average").attr("disabled", true)
+    // $("#key_random_average").attr("disabled", true)
     //$("#key_history").attr("disabled", true)
     //$("#key_CH").attr("disabled", true)
 
