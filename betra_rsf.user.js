@@ -1,6 +1,6 @@
  // ==UserScript==
 // @name         Betra_RSF
-// @version      2.3
+// @version      2.4
 // @description  Betra RSF
 // @author       veethreedev
 // @match        https://rsf.is/markadir/limmidaprentun*
@@ -9,6 +9,9 @@
 // @require      http://code.jquery.com/jquery-latest.js
 // @downloadURL  https://www.pawel.is/betra_rsf.user.js
 // ==/UserScript==
+
+let ignore_vf = true
+let using_zpl = false
 
 // Elements with the following Selectors will be hidden once the page loads.
 let elements_to_hide = [
@@ -87,7 +90,6 @@ let key = {
     previous_lot:     "ArrowUp",
 }
 
-let using_zpl = false
 
 // A list of currently selected lots
 let selected_lots = []
@@ -198,8 +200,9 @@ function remove_selected_lot(index) {
 // Replaces the boat id in the table with the name
 function replace_id() {
     data.forEach(function(item, index) {
-        boat_id = item.boat_id
-        $(item.element).children().eq(4).text(item.ship_name + " (" + item.ship_id + ")")
+		if ( typeof item.ship_name != "undefined" ) {
+			$(item.element).children().eq(4).text(item.ship_name + " (" + item.ship_id + ")")
+		}
     })
 }
 
@@ -241,13 +244,13 @@ function uncheck_all(_clear_alert=true) {
 function select_by_tub_id() {
     uncheck_all()
     data.forEach(function(lot, index) {
-		let limit = 0
-		if ( use_zpl ) {
-			limit = 8
-		}
+		// let limit = 0
+		// if ( use_zpl ) {
+		// 	limit = 8
+		// }
         if ( lot[ "tub_id" ] && lot["tub_id"].length > 0 ) {
-			console.log( lot[ "tub_id" ], lot[ "buyer_id" ] )
-            check_lot(index, true)
+			if ( ignore_vf && lot[ "fish_size" ].startsWith( "Vélflokkað" ) ) { return }
+			check_lot(index, true) 
         } 
     })
     alert("<p>Valdi " + selected_lots.length + " stæður með karanúmerum.</p>")
