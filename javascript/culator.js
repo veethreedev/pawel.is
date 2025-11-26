@@ -76,13 +76,14 @@ function generate_key_pad() {
     if ($("#key_pad").length < 1) {
         let layout = [
             // ["random average", "history", "CH"],
+            // [ "history" ],
             ["c", "*", "-5", "<"],
             ["7", "8", "9", "/"],
             ["4", "5", "6", "+"],
             ["1", "2", "3", "-"],
             ["0", ".", "="]
         ]
-        let button = '<button id="key_ID" type="button" class="fs-1 p-4 btn btn-dark btn-block btn-lg border border-dark">TEXT</button>'
+        let button = '<button id="key_ID" type="button" class="COLOR fs-1 p-4 btn btn-dark btn-block btn-lg border border-dark">TEXT</button>'
 
         let keypad_html = "<div id='key_pad' class='bg-dark p-0'>"
         let row_id = 0
@@ -91,7 +92,11 @@ function generate_key_pad() {
             keypad_html = keypad_html + '<div class="row p-0"><div id="row_' + row_id + '" class="btn-group p-0" role="group aria-label="keypad">'
             for (let x=0; x < row.length; x++) {
                 let id = row[x].replace(" ", "_")
-                keypad_html = keypad_html + button.replace("TEXT", row[x]).replace("ID", id)
+				let color = "text-light"
+				if ( row[x] == "<" || row[x] == "c" ) {
+					color = "text-danger"
+				}
+                keypad_html = keypad_html + button.replace("TEXT", row[x]).replace("ID", id).replace("COLOR", color)
             }
             row_id += 1
             keypad_html = keypad_html +  '</div></div>'
@@ -193,12 +198,18 @@ $(document).ready(function() {
     //$("#key_CH").attr("disabled", true)
 
     // Click events
-    $("#list").click(function() {
-        hide_list()
-        show_keypad()
-        show_screen()
-        clear_screen()
-    })
+  //   $("#history").click(function( e ) {
+		// e.preventDefault()
+		// hide_keypad()
+		// hide_screen()
+		// show_list(get_history())
+  //   })
+    // $("#list").click(function() {
+    //     hide_list()
+    //     show_keypad()
+    //     show_screen()
+    //     clear_screen()
+    // })
 
     // $("#back").click(function() {
     //     hide_list()
@@ -228,11 +239,12 @@ $(document).ready(function() {
 
         if (key.text() == "c") {
             clear_screen()
+			print_comment(" ")
 			current_input = ""
         } else if (key.text() == "<") {
 			current_input = current_input.slice( 0, -1 )
-			print_screen( current_input )
-            // screen.text(screen.text().substring(0, screen.text().length - 1))
+			// print_screen( current_input )
+            screen.text(screen.text().substring(0, screen.text().length - 1))
 		} else if ( key.text() == "-5" ) {
 			if ( isNumber( screen.text() ) ) {
 				print_screen( screen.text() - 5 )
@@ -266,6 +278,7 @@ $(document).ready(function() {
                 if (ok) {
                     if (screen.text().length > 0) {
                         print_screen(result)
+						print_comment( formula )
                         add_history(formula + "=" + result)
                     }
                 }
@@ -291,9 +304,10 @@ $(document).ready(function() {
             show_keypad()
             show_screen()
             clear_screen()
+            comment.text("")
         } else {
             $("#screen_text").text(screen.text() + key.text())
-            comment.text("")
+            // comment.text("")
         }
     })
 })
