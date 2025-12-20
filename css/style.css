@@ -1,0 +1,64 @@
+body {
+    text-align: center;
+}
+
+marquee {
+    color:crimson;
+    /* font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif; */
+    font-family: "Comic Sans MS", "Comic Neue", "Playpen Sans", Roboto, sans-serif;
+    font-size:x-large;
+}
+
+a {
+    color:fuchsia;
+    margin-right: 30;
+    margin-left: 30;
+}
+
+h1 {
+    color:#0011ff;
+}
+
+h2 {
+    color:fuchsia;
+}
+
+h4 {
+    color:chartreuse;
+}
+p {
+    color:mediumspringgreen;
+    font-size:x-large;
+}
+
+.retro-hr {
+  /* Make it thick */
+  height: 10px;
+  
+  /* The classic Magenta color */
+  background-color: #0011ff;
+  
+  /* This creates the 3D "raised" effect common in the 90s */
+  border-top: 3px solid #80e6ff;   /* Lighter highlight on top */
+  border-left: 3px solid #80ecff;  /* Lighter highlight on left */
+  border-bottom: 3px solid #1c0080; /* Darker shadow on bottom */
+  border-right: 3px solid #000d80;  /* Darker shadow on right */
+  
+  /* Remove default browser styling */
+  border-style: solid;
+  margin: 20px 0;
+  
+  /* Ensure it doesn't have that modern rounded look */
+  border-radius: 0;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.flicker-hr {
+  animation: flicker 0.8s infinite;
+  box-shadow: 0 0 10px #0099ff; /* Adding a "glow" */
+}
