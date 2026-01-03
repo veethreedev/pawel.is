@@ -1,6 +1,10 @@
 body {
-    text-align: center;
+    text-align: left;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding 0 80px;
 }
+
 
 marquee {
     color:crimson;
@@ -23,12 +27,30 @@ h2 {
     color:fuchsia;
 }
 
+h3 {
+    color:fuchsia;
+}
+
 h4 {
     color:chartreuse;
 }
+
 p {
     color:mediumspringgreen;
     font-size:x-large;
+}
+
+ul {
+    color:mediumspringgreen;
+    font-size:x-large;
+}
+
+.tiny {
+	font-size:small;
+}
+
+.emphesize {
+	color:fuchsia;
 }
 
 .retro-hr {
