@@ -1,37 +1,43 @@
+<!doctype html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b0b0d">
     <title>Pawel Punktur Is</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body background="img/bg_stars.jpg">
-	<div style="text-align: center">
- <img src="img/banner.gif">
- <hr>
- <marquee direction="left" height="32"><b>Culator v2.0 available now!</b></marquee>
- <hr>
- <h2> <a href="/">Home</a> <span>
-    <a href="/culator.html">Culator v1.4 (Web app)</a> <span>
-    <a href="/culator2.html">Culator v2.0 (APK)</a> <span></span>
-    <a href="betra_rsf.user.js">Betra RSF</a> <span>
- </h2>
- <br>
- <b>
- <h1>Culator v2.0</h1>
-  </div>
-<a href = "apk/Culator_v2_0.apk">Download APK (8.2mb)</a>
-<p>Culator v2.0 is a native android version of the culator web app. It was 100% vibe-coded and took 0% human creativity to create.</p>
-<p>Fun facts:</p>
-<ul>
-    <li>It was created in about 15 minutes.</li>
-    <li>It took 6 seperate prompts, although the latter 5 were minor changes.</li>
-    <li>In those 15 minutes, the language model (GPT-6 Astra) consumed roughly 5 kWh of electricity*, which is equivalent to running a 1,000w microwave for 5 hours.</li>
-    <li>10 litres of clean drinking water were used to cool the massive eyesore of a datacenter that ran the model**</li>
-    <li>Choosing to use generative AI for this project is a completely indefensible choice, and I am ashamed.***</li>
-</ul>
-<img src="img/culator_v2_screenshot.jpg"> </a>
-<p class="tiny">* This is a rough estimate based on the average energy consumption of large language models. The actual energy consumption may vary depending on the specific model and hardware used.</p>
-<p class="tiny">** This is a rough estimate based on the average water consumption of large datacenters. The actual water consumption may vary depending on the specific datacenter and cooling methods used.</p>
-<p class="tiny">*** This asterisk wasn't necessary. I just wanted to reiterate my shame.</p>
-<br>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/">Welcome to pawel.is</a>
+        <nav class="site-nav">
+            <a href="/">Home</a>
+            <a href="/culator.html">Culator v1.4 (Web app)</a>
+            <a href="/culator2.html" aria-current="page">Culator v2.0 (APK)</a>
+            <a href="betra_rsf.user.js">Betra RSF</a>
+        </nav>
+        <p class="announcement"><span>Culator v2.0 available now!</span></p>
+    </header>
+
+    <main>
+        <h1>Culator v2.0</h1>
+        <a class="download" href="apk/Culator_v2_0.apk">Download APK (8.2mb)</a>
+        <a class="download" href="https://github.com/veethreedev/Culator">Source code</a>
+        <p>Culator v2.0 is a native android version of the culator web app. It was 100% vibe-coded and took 0% human creativity to create.</p>
+        <p>Fun facts:</p>
+        <ul>
+            <li>It was created in about 15 minutes.</li>
+            <li>It took 6 seperate prompts, although the latter 5 were minor changes.</li>
+            <li>In those 15 minutes, the language model (GPT-6 Astra) consumed roughly 5 kWh of electricity*, which is equivalent to running a 1,000w microwave for 5 hours.</li>
+            <li>10 litres of clean drinking water were used to cool the massive eyesore of a datacenter that ran the model**</li>
+        </ul>
+        <div class="screenshots">
+            <img class="screenshot" src="img/culator2_screenshot_1.png" width="406" height="836" alt="Screenshot of Culator v2.0 on Android">
+            <img class="screenshot" src="img/culator2_screenshot_3.png" width="406" height="836" alt="Screenshot of Culator v2.0 on Android">
+        </div>
+        <p class="tiny">* This is a rough estimate based on the average energy consumption of large language models. The actual energy consumption may vary depending on the specific model and hardware used.</p>
+        <p class="tiny">** This is a rough estimate based on the average water consumption of large datacenters. The actual water consumption may vary depending on the specific datacenter and cooling methods used.</p>
+    </main>
 </body>
+</html>
