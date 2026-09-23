@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>Culator</title>
+  <meta name="description" content="Calculator with random average splitting and history.">
+  <meta name="theme-color" content="#101214">
+  <meta name="color-scheme" content="dark light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <!-- Calculator -->
+  <main id="calculator" class="screen">
+    <div class="calc-frame">
+      <div class="calc-column">
+        <div class="toolbar">
+          <div class="menu-anchor">
+            <button id="menuButton" class="icon-button" aria-label="Open menu" aria-haspopup="menu" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3,6h18v2H3zM3,11h18v2H3zM3,16h18v2H3z"/></svg>
+            </button>
+            <div id="mainMenu" class="menu" role="menu" hidden>
+              <button role="menuitem" data-action="settings">Settings</button>
+              <button role="menuitem" data-action="history">History</button>
+            </div>
+          </div>
+        </div>
+        <div class="display">
+          <div id="countLabel" class="count-label" hidden>Number of items</div>
+          <div id="equation" class="equation" aria-live="polite"></div>
+          <div id="result" class="result"></div>
+        </div>
+        <p id="averageError" class="average-error" hidden>Random average requires a whole-number total</p>
+        <div class="average-row keys-width">
+          <button id="averageButton" class="tonal-button">Random average</button>
+        </div>
+        <div id="keypad" class="keypad keys-width"></div>
+        <div class="bottom-spacer"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Install banner (shown when opened with ?install) -->
+  <div id="installBanner" class="install-banner" role="dialog" aria-labelledby="installText" hidden>
+    <p id="installText">Install Culator on this device?</p>
+    <div class="install-actions">
+      <button id="installDismiss" class="text-button">Not now</button>
+      <button id="installConfirm" class="text-button">Install</button>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <section id="settings" class="screen settings" hidden aria-labelledby="settingsTitle">
+    <div class="settings-bar">
+      <button id="settingsBack" class="icon-button" aria-label="Back">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20,11H7.83l5.59-5.59L12,4l-8,8 8,8 1.41-1.41L7.83,13H20v-2z"/></svg>
+      </button>
+      <h1 id="settingsTitle">Settings</h1>
+    </div>
+    <div class="settings-scroll">
+      <div class="settings-content">
+        <section class="card">
+          <h2>Appearance</h2>
+          <div class="chip-row" id="themeChips">
+            <button class="chip" data-theme-choice="dark">Dark</button>
+            <button class="chip" data-theme-choice="light">Light</button>
+            <button class="chip" data-theme-choice="system">System</button>
+          </div>
+          <h3>Accent color</h3>
+          <div id="accentChips" class="chip-rows"></div>
+          <p id="systemAccentNote" class="muted" hidden>System accent isn't supported by this browser. Using Mint on this device.</p>
+        </section>
+        <section class="card">
+          <h2>Display</h2>
+          <label class="switch-row">
+            <span class="switch-text">
+              <span class="title-small">Keep screen on</span>
+              <span class="muted">Prevent the screen from sleeping while using the app.</span>
+            </span>
+            <input id="keepScreenOn" type="checkbox" role="switch" class="switch">
+          </label>
+          <p id="wakeLockNote" class="muted" hidden>This browser can't keep the screen on.</p>
+        </section>
+        <section class="card">
+          <h2>History</h2>
+          <h3>Keep history for</h3>
+          <div id="retentionChips" class="chip-rows"></div>
+          <p class="muted">Older entries are deleted. Increasing this period won't restore deleted history.</p>
+        </section>
+        <section class="card">
+          <h2>Random average offsets</h2>
+          <p id="offsetLabel">Up to ±20</p>
+          <input id="offsetRange" type="range" min="1" max="100" step="1" class="slider" aria-label="Random average offset range">
+          <p class="muted">Each whole-number result stays within this distance of the average. The total stays exact.</p>
+        </section>
+        <button id="restoreDefaults" class="outlined-button full">Restore defaults</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- History dialog -->
+  <dialog id="historyDialog" class="dialog" aria-labelledby="historyTitle">
+    <div class="dialog-body">
+      <h2 id="historyTitle" class="dialog-title">History</h2>
+      <p id="historySubtitle" class="muted"></p>
+      <p id="historyEmpty" class="muted">No saved equations. Press = to save a result.</p>
+      <ul id="historyList" class="history-list"></ul>
+      <div class="dialog-actions spread">
+        <button id="clearHistory" class="text-button">Clear history</button>
+        <button id="historyDone" class="text-button">Done</button>
+      </div>
+      <div id="historyMenu" class="menu floating" role="menu" hidden>
+        <button role="menuitem" data-action="restore">Use in calculator</button>
+        <button role="menuitem" data-action="delete">Delete equation</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Random average dialog -->
+  <dialog id="averageDialog" class="dialog" aria-labelledby="averageTitle">
+    <div class="dialog-body">
+      <h2 id="averageTitle" class="dialog-title">Random average</h2>
+      <p id="averageSummary" class="accent-text"></p>
+      <p id="averageCount" class="muted"></p>
+      <ol id="averageList" class="average-list"></ol>
+      <button id="shuffleAgain" class="outlined-button full">Shuffle again</button>
+      <div class="dialog-actions">
+        <button id="averageDone" class="text-button">Done</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Custom accent dialog -->
+  <dialog id="colorDialog" class="dialog alert" aria-labelledby="colorTitle">
+    <div class="dialog-body">
+      <h2 id="colorTitle" class="alert-title">Custom accent</h2>
+      <div class="color-scroll">
+        <div id="svPad" class="sv-pad" role="slider" tabindex="0" aria-label="Saturation and brightness">
+          <div id="svThumb" class="sv-thumb"></div>
+        </div>
+        <div class="hue-wrap">
+          <div class="hue-track"></div>
+          <input id="hueSlider" type="range" min="0" max="360" step="any" class="hue-slider" aria-label="Hue">
+        </div>
+        <label class="text-field">
+          <span class="text-field-label">Hex color</span>
+          <span class="text-field-box">
+            <span class="text-field-prefix">#</span>
+            <input id="hexInput" type="text" inputmode="text" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="7">
+          </span>
+        </label>
+        <div class="preview">
+          <h3>Preview</h3>
+          <div class="preview-box">
+            <div class="preview-text">
+              <div class="preview-eq">12 × 3</div>
+              <div class="preview-res">= 36</div>
+            </div>
+            <div class="preview-key op">+</div>
+            <div class="preview-key eq">=</div>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button id="colorCancel" class="text-button">Cancel</button>
+        <button id="colorApply" class="text-button">Apply</button>
+      </div>
+    </div>
+  </dialog>
+
+</body>
+</html>
