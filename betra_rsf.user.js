@@ -7,7 +7,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @require      http://code.jquery.com/jquery-latest.js
-// @downloadURL  https://www.pawel.is/betra_rsf.user.js
+// @downloadURL  https://www.pawel.is/userscript/betra_rsf.user.js
 // ==/UserScript==
 
 let ignore_vf = true

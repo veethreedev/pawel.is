@@ -1,52 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0b0b0d">
-    <title>Pawel Punktur Is</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pawel.is</title>
+  <meta name="description" content="The personal website of Pawel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header class="site-header">
-        <a class="brand" href="/">Welcome to pawel.is</a>
-        <nav class="site-nav">
-            <a href="/" aria-current="page">Home</a>
-            <a href="/culator.html">Culator v1.4 (Web app)</a>
-            <a href="/culator2.html">Culator v2.0 (APK)</a>
-            <a href="betra_rsf.user.js">Betra RSF</a>
-        </nav>
-        <p class="announcement"><span>Culator v2.0 available now!</span></p>
-    </header>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html">pawel<span>.</span>is</a>
+      <nav class="nav-links">
+        <a href="culator-native.html">Culator (Android)</a>
+        <a href="culator-pwa.html">Culator (PWA)</a>
+        <a href="sagaprent.html">Sagaprent</a>
+        <a href="userscript/betra_rsf.user.js">Betra RSF</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-        <h1>Welcome</h1>
-        <p>This is a website owned by me, Pawel.</p>
-        <p>My qualifications:</p>
-        <ul>
-            <li>Passable programmer</li>
-            <li>Abhorrent music producer</li>
-            <li>Worthless human</li>
-            <li>Exceptional web designer</li>
-            <li>Licensed forklift operator</li>
-        </ul>
-        <p>For project inqueries, Or to discuss how my skills can benefit you or your team, Please contact me.</p>
-        <p>My contact information is encoded in the cipher below:</p>
-        <p class="emphesize cipher">
-            <span>rojkcptqpliikrdnoqllkeyvlrkahtimuixpiheosrawdxsplpeasiwpthmgtckqdtnzqppnaqlxlsmewtdidjbfinibkrpgtkmyxteeetckrepcp</span>
-        </p>
-    </main>
+  <main>
+    <div class="wrap">
+      <h1>Welcome</h1>
+      <p class="lead">This website is owned by me, <strong>Pawel</strong>.</p>
 
-    <footer class="site-footer">
-        <p>Examples of my terrible work</p>
-        <div class="icon-links">
-            <a href="https://github.com/veethreedev">GitHub</a>
-            <a href="https://www.youtube.com/@clxckwise">Youtube</a>
-            <a href="https://open.spotify.com/artist/2JfCEEsPlF0vwK4ovN8woZ">Spotify</a>
-            <a href="https://soundcloud.com/clxckwisebeats">Soundcloud</a>
-        </div>
-        <p class="tiny">please leave me alone</p>
-    </footer>
+      <h2>My qualifications</h2>
+      <ol class="quals">
+        <li>Passable Programmer</li>
+        <li>Abhorrent music producer</li>
+        <li>Worthless human being</li>
+        <li>Exceptional web designer</li>
+        <li>Licensed forklift operator</li>
+      </ol>
+
+      <h2>Contact</h2>
+      <p class="muted">Any questions, project inquiries, and discussions about how my skills can benefit you and your team should be directed to the e-mail address encoded in the cipher below.</p>
+      <div class="cipher" id="cipher">cihnroyudyxyclccuygcjodrsktpmyhaunndfljoirlszisdgvarbHgqkjovkvtxfjlhvrSxhvfhvzwpttatxhkdojLcxwsxitsomzauiyohzvivfudtapIitbatlqsfanuzgiklfzvwxnqqgwvaqtvjctuibpdaXcgto</div>
+      <button class="copy" type="button" data-copy="cipher">Copy cipher</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <ul class="footer-links">
+        <li><a href="https://github.com/veethreedev" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.youtube.com/@clxckwise" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://open.spotify.com/artist/2JfCEEsPlF0vwK4ovN8woZ" target="_blank" rel="noopener">Spotify</a></li>
+        <li><a href="https://soundcloud.com/clxckwisebeats" target="_blank" rel="noopener">SoundCloud</a></li>
+      </ul>
+      <p class="leave-me-alone">please leave me alone</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll("[data-copy]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var text = document.getElementById(btn.dataset.copy).textContent.trim();
+        navigator.clipboard.writeText(text).then(function () {
+          btn.textContent = "Copied";
+          setTimeout(function () { btn.textContent = "Copy cipher"; }, 1500);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
