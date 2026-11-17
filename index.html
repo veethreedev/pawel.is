@@ -7,65 +7,70 @@
   <meta name="description" content="The personal website of Pawel.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav">
+  <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="index.html">pawel<span>.</span>is</a>
-      <nav class="nav-links">
-        <a href="culator-native.html">Culator (Android)</a>
-        <a href="culator-pwa.html">Culator (PWA)</a>
-        <a href="sagaprent.html">Sagaprent</a>
-        <a href="userscript/betra_rsf.user.js">Betra RSF</a>
-      </nav>
+      <div class="box">
+        <div class="box-top">
+          <span class="hashes" aria-hidden="true"></span>
+          <a class="brand" href="index.html">&gt; PAWEL.IS &lt;</a>
+          <span class="hashes" aria-hidden="true"></span>
+        </div>
+        <div class="box-mid">
+          <div class="box-side" aria-hidden="true"><span>~</span><span>-</span></div>
+          <nav class="nav-links">
+            <a href="culator.html">$ CULATOR</a>
+            <a href="sagaprent.html">$ SAGAPRENT</a>
+            <a href="userscript/betra_rsf.user.js">$ BETRA_RSF</a>
+          </nav>
+          <div class="box-side" aria-hidden="true"><span>+</span><span>_</span></div>
+        </div>
+        <div class="hashes code-row" aria-hidden="true"><span class="line">!^!@)~%)!!()%))!@)%-)!~@@)%))<span class="fill-a">&gt;_/__+=&gt;==_&lt;=/?&gt;-/~--~&lt;+=/+/&gt;?+&lt;_-_=?&lt;&gt;&gt;-+==~-+/?=~~_+|&lt;&gt;_-|_?|&lt;&gt;_&gt;~~?|+~~&gt;-?-+|</span></span><span class="line">!#)%))?)!_?!@==!%!$)&gt;%_--?&lt;|~_||-?-/~?&gt;~&gt;//&gt;~&gt;----+/|/&gt;???&lt;-&lt;&lt;~+&gt;-?~=-?&gt;?+~|+_&gt;=&lt;_|??=|/+=/==/=&gt;|=__?|</span></div>
+      </div>
     </div>
   </header>
 
   <main>
     <div class="wrap">
-      <h1>Welcome</h1>
-      <p class="lead">This website is owned by me, <strong>Pawel</strong>.</p>
+      <p class="block">$ This website is owned by Pawel.</p>
 
-      <h2>My qualifications</h2>
-      <ol class="quals">
-        <li>Passable Programmer</li>
-        <li>Abhorrent music producer</li>
-        <li>Worthless human being</li>
-        <li>Exceptional web designer</li>
-        <li>Licensed forklift operator</li>
-      </ol>
+      <div class="block">
+        <p>$ Qualifications:</p>
+        <ul class="list">
+          <li>Passable Programmer</li>
+          <li>Abhorrent Music Producer</li>
+          <li>Worthless Human</li>
+          <li>Exceptional Web Designer</li>
+          <li>Licenced Forklift Operator</li>
+        </ul>
+      </div>
 
-      <h2>Contact</h2>
-      <p class="muted">Any questions, project inquiries, and discussions about how my skills can benefit you and your team should be directed to the e-mail address encoded in the cipher below.</p>
-      <div class="cipher" id="cipher">cihnroyudyxyclccuygcjodrsktpmyhaunndfljoirlszisdgvarbHgqkjovkvtxfjlhvrSxhvfhvzwpttatxhkdojLcxwsxitsomzauiyohzvivfudtapIitbatlqsfanuzgiklfzvwxnqqgwvaqtvjctuibpdaXcgto</div>
-      <button class="copy" type="button" data-copy="cipher">Copy cipher</button>
+      <div class="block">
+        <p>$ Contact:</p>
+        <p>Somewhere on this website, there is a hidden passphrase. Enter it below and my contact information will be revealed.</p>
+      </div>
+
+      <form class="prompt" id="passphrase-form" autocomplete="off">
+        <label for="passphrase">$ passphrase&gt;</label>
+        <input id="passphrase" name="passphrase" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="go">
+      </form>
+      <p class="output" id="passphrase-output" aria-live="polite"></p>
     </div>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <div class="wrap">
       <ul class="footer-links">
-        <li><a href="https://github.com/veethreedev" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://www.youtube.com/@clxckwise" target="_blank" rel="noopener">YouTube</a></li>
-        <li><a href="https://open.spotify.com/artist/2JfCEEsPlF0vwK4ovN8woZ" target="_blank" rel="noopener">Spotify</a></li>
-        <li><a href="https://soundcloud.com/clxckwisebeats" target="_blank" rel="noopener">SoundCloud</a></li>
+        <li><a href="https://github.com/veethreedev" target="_blank" rel="noopener">$ GITHUB</a></li>
+        <li><a href="https://www.youtube.com/@clxckwise" target="_blank" rel="noopener">$ YOUTUBE</a></li>
+        <li><a href="https://open.spotify.com/artist/2JfCEEsPlF0vwK4ovN8woZ" target="_blank" rel="noopener">$ SPOTIFY</a></li>
+        <li><a href="https://soundcloud.com/clxckwisebeats" target="_blank" rel="noopener">$ SOUNDCLOUD</a></li>
       </ul>
-      <p class="leave-me-alone">please leave me alone</p>
     </div>
   </footer>
-
-  <script>
-    document.querySelectorAll("[data-copy]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var text = document.getElementById(btn.dataset.copy).textContent.trim();
-        navigator.clipboard.writeText(text).then(function () {
-          btn.textContent = "Copied";
-          setTimeout(function () { btn.textContent = "Copy cipher"; }, 1500);
-        });
-      });
-    });
-  </script>
+  <script src="passphrase.js"></script>
 </body>
 </html>

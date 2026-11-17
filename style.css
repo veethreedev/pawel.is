@@ -1,17 +1,13 @@
 :root {
-  --bg: #0b0b0c;
-  --surface: #131315;
-  --border: #232327;
-  --text: #e8e8ea;
-  --muted: #8b8b93;
-  --faint: #55555c;
-  --accent: #c6f432;
-  --accent-ink: #0b0b0c;
-  --radius: 12px;
-  --max: 760px;
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --display: "Space Grotesk", var(--font);
-  --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --bg: #000;
+  --green: #3cff4a;
+  --green-dim: #1f9a2a;
+  --mash: #24b532;
+  --glow-mash: 0 0 2px rgba(36, 181, 50, 0.8), 0 0 8px rgba(36, 181, 50, 0.3);
+  --red: #ff4a3c;
+  --glow: 0 0 2px rgba(60, 255, 74, 0.9), 0 0 10px rgba(60, 255, 74, 0.45), 0 0 22px rgba(60, 255, 74, 0.2);
+  --max: 820px;
+  --font: "VT323", ui-monospace, "Cascadia Mono", Consolas, monospace;
 }
 
 *,
@@ -22,256 +18,334 @@
 
 html {
   color-scheme: dark;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  color: var(--text);
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 45%, rgba(30, 90, 20, 0.55), rgba(8, 30, 6, 0.35) 55%, transparent 85%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--green);
   font-family: var(--font);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: clamp(22px, 1.1rem + 1vw, 34px);
+  line-height: 1.15;
+  text-shadow: var(--glow);
   -webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanlines */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+}
+
+::selection {
+  background: var(--green);
+  color: #000;
+  text-shadow: none;
 }
 
 a {
   color: inherit;
+  text-decoration: none;
+}
+
+/* Hover = inverted block, like selected text on a terminal. */
+a:hover,
+a:focus-visible,
+button:hover,
+button:focus-visible {
+  background: var(--green);
+  color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(60, 255, 74, 0.45);
+  opacity: 1;
+}
+
+:focus-visible {
+  outline: 1px dashed var(--green);
+  outline-offset: 3px;
 }
 
 .wrap {
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Navbar */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(11, 11, 12, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav .wrap {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  height: 64px;
-}
-
-.brand {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
-  text-decoration: none;
-  margin-right: auto;
-}
-
-.brand span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 22px;
-}
-
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.925rem;
-  transition: color 0.15s;
-}
-
-.nav-links a:hover,
-.nav-links a[aria-current="page"] {
-  color: var(--text);
-}
-
-/* Main */
-main {
-  flex: 1;
-  padding: 88px 0 96px;
-}
-
-h1 {
-  font-family: var(--display);
-  font-size: clamp(2.5rem, 7vw, 3.75rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin: 0 0 24px;
-}
-
-h2 {
-  font-family: var(--display);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin: 56px 0 16px;
-}
-
-.lead {
-  font-size: 1.2rem;
-  color: var(--muted);
-  margin: 0;
-  max-width: 560px;
-}
-
-.lead strong {
-  color: var(--text);
-  font-weight: 500;
+  padding: 0 16px;
 }
 
 p {
-  margin: 0 0 16px;
-}
-
-/* Qualifications */
-.quals {
-  list-style: none;
   margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--border);
 }
 
-.quals li {
+/* ---------- Header box ---------- */
+.site-header {
+  padding-top: 24px;
+}
+
+/* Snap the box to a whole number of characters so the # rows end on a full glyph. */
+.box {
+  width: 100%;
+  width: round(down, 100%, 1ch);
+  container-type: inline-size;
+}
+
+/* Symbol mash sits a shade darker than the text so PAWEL.IS and the nav stand out. */
+.hashes,
+.box-side {
+  color: var(--mash);
+  text-shadow: var(--glow-mash);
+}
+
+.hashes {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Filler mash: deliberately no number-row symbols, so it never reads as code. */
+.hashes::before {
+  content: "?<??<>=_<?>_-?+_-<~>/?>_>~<-~~==>~?|?>=<=+?~-?+/<-+|=<+~->-/-+/-~~==~?///->=+|-+|~/-_=-~~??_<=?<=_//-//=~+>+~=_/>>-~_=?+~>|+/---=>=~>||>?_>?";
+}
+
+/* Bottom row carries the encoded passphrase in two halves. On wide boxes they
+   run together on one line; when the box is narrower than the full code
+   (51 chars) each half gets its own line so no code symbol is ever clipped. */
+.code-row::before {
+  content: none;
+}
+
+.code-row .fill-a {
+  display: none;
+}
+
+@container (width < 51ch) {
+  .code-row .line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .code-row .fill-a {
+    display: inline;
+  }
+}
+
+.box-top {
   display: flex;
   align-items: baseline;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 1.05rem;
 }
 
-.quals li::before {
-  content: counter(list-item, decimal-leading-zero);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--faint);
+.box-top .hashes {
+  flex: 1;
+  min-width: 0;
 }
 
-.muted {
-  color: var(--muted);
+/* Left fill should hug the title, so align its hashes to the right edge. */
+.box-top .hashes:first-child {
+  direction: rtl;
 }
 
-/* Cipher */
-.cipher {
-  position: relative;
-  margin-top: 20px;
-  padding: 20px 22px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  line-height: 1.8;
-  letter-spacing: 0.08em;
-  word-break: break-all;
-  color: var(--accent);
+/* Where round() is supported, give the left fill a whole number of characters
+   (the title is 12 chars wide) so neither fill ends on a sliced glyph. */
+@supports (width: round(down, 10px, 1ch)) {
+  .box-top .hashes:first-child {
+    flex: none;
+    width: round(down, calc((100% - 12ch) / 2), 1ch);
+  }
 }
 
-.copy {
-  display: block;
-  margin: 12px 0 0 auto;
-  padding: 6px 12px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--muted);
-  font: 500 0.8rem var(--font);
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+.brand {
+  flex: none;
+  white-space: pre;
 }
 
-.copy:hover {
-  color: var(--text);
-  border-color: var(--faint);
+.box-mid {
+  display: flex;
+  align-items: stretch;
 }
 
-/* Buttons */
+.box-side {
+  flex: none;
+  overflow: hidden;
+  white-space: pre;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-links {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15em 1.1em;
+  padding: 0.45em 0.5em;
+  font-size: 1.2em;
+}
+
+.nav-links a {
+  white-space: nowrap;
+}
+
+.nav-links a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Main ---------- */
+main {
+  flex: 1;
+  padding: 1.2em 0 2em;
+}
+
+.block {
+  margin-bottom: 1.15em;
+}
+
+.block:last-child {
+  margin-bottom: 0;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+.list li {
+  display: flex;
+  gap: 0.5em;
+}
+
+.list li::before {
+  content: ">";
+  flex: none;
+}
+
+.hl {
+  color: var(--green);
+  font-weight: normal;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* ---------- Buttons ---------- */
 .buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 36px;
+  gap: 0.35em 1em;
+  margin-top: 0.4em;
 }
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: transform 0.15s, background 0.15s, border-color 0.15s;
+  display: inline-block;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--green);
+  font: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
+.btn::before {
+  content: "[ ";
 }
 
-.btn svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+.btn::after {
+  content: " ]";
 }
 
-.btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
+/* ---------- Passphrase prompt ---------- */
+.prompt {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  margin-top: 1.15em;
 }
 
-.btn-primary:hover {
-  background: #d4ff4a;
+.prompt label {
+  flex: none;
 }
 
-.btn-ghost {
-  background: var(--surface);
+.prompt input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  color: var(--green);
+  caret-color: var(--green);
+  font: inherit;
+  text-shadow: var(--glow);
 }
 
-.btn-ghost:hover {
-  border-color: var(--faint);
+.prompt input:focus-visible {
+  outline: none;
 }
 
-/* Screenshots */
+.output {
+  margin-top: 0.6em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.output:empty {
+  display: none;
+}
+
+.output.denied {
+  color: var(--red);
+  text-shadow: 0 0 2px rgba(255, 74, 60, 0.9), 0 0 10px rgba(255, 74, 60, 0.45);
+}
+
+.output a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* ---------- Screenshots ---------- */
 .shots {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 12px;
+  margin-top: 0.4em;
 }
 
 .shot {
   position: relative;
   margin: 0;
   aspect-ratio: 9 / 19.5;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 18px;
+  border: 2px solid var(--green-dim);
+  box-shadow: 0 0 12px rgba(60, 255, 74, 0.25);
   overflow: hidden;
   display: grid;
   place-items: center;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .shot::before {
   content: attr(data-label);
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--faint);
 }
 
 .shot img {
@@ -284,8 +358,7 @@ p {
 
 .shot-wide {
   aspect-ratio: auto;
-  min-height: 200px;
-  border-radius: 12px;
+  min-height: 160px;
 }
 
 .shot-wide:has(img)::before {
@@ -298,62 +371,69 @@ p {
   display: block;
 }
 
-/* Footer */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 40px 0 32px;
+/* ---------- Footer ---------- */
+.site-footer {
+  padding: 1em 0 1.2em;
+  font-size: 0.8em;
 }
 
 .footer-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 0 0.4em;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.footer-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.925rem;
-  transition: color 0.15s;
+.footer-links li + li::before {
+  content: "- ";
 }
 
-.footer-links a:hover {
-  color: var(--text);
+/* ---------- Plain document pages (policy) ---------- */
+.doc h1 {
+  font: inherit;
+  font-size: 1.2em;
+  margin: 0 0 0.2em;
 }
 
-.leave-me-alone {
-  margin: 36px 0 0;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--faint);
-  text-align: center;
+.doc h2 {
+  font: inherit;
+  margin: 1.1em 0 0.1em;
+}
+
+.doc h2::before {
+  content: "$ ";
+}
+
+.doc a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.dim {
+  opacity: 0.7;
 }
 
 @media (max-width: 640px) {
-  main {
-    padding: 56px 0 72px;
-  }
-
-  .nav .wrap {
-    gap: 16px;
-  }
-
-  .nav-links {
-    gap: 16px;
-  }
-
   .shots {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .btn {
-    flex: 1 1 100%;
-    justify-content: center;
+  .nav-links {
+    font-size: 1.05em;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: flicker 6s infinite steps(1);
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    48% { opacity: 0.985; }
+    50% { opacity: 0.96; }
+    52% { opacity: 1; }
   }
 }
