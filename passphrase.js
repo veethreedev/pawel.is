@@ -5,7 +5,7 @@
 // padding check or produces invalid UTF-8, either of which counts as a miss.
 (function () {
   var CIPHERTEXT =
-    "U2FsdGVkX19v62+dfcI8BgQhtoMPVsZiFdDqZ9IeXAaJ3jXysePHpDF3i/xaLVEGZdTRvuIUPm+srepv/LXNqAjk2dTrmL1aaQon5ruUtN/B2DJ1ZkExX91KJaugcT3pu1zerkYzZYJ/6YJoqQhoYuu/8OflQWB9QHxan1qmA70=";
+    "U2FsdGVkX192WysRW23SbtQenUyXhIXDw8jaaeBvGLVAdbmy80kB/47YrA70FjaxB14+yZ8NFvXve5jbyoZJNd3YkaHKGZSwqnEiNikn4+SjKYA9SL9jCrC30sQ75yCUwkeU4YIeToaq80FYyOpU9+XWtbjE0qq7kD/ah2x6I5V7RV+vNQLDXzWyx7gfmXmv";
   var ITERATIONS = [10000, 250000, 1000, 100000, 1];
 
   var form = document.getElementById("passphrase-form");

@@ -94,6 +94,11 @@ p {
   margin: 0;
 }
 
+/* Browsers default <code> to a smaller system monospace; match the site font. */
+code {
+  font: inherit;
+}
+
 /* ---------- Header box ---------- */
 .site-header {
   padding-top: 24px;
@@ -119,31 +124,9 @@ p {
   white-space: nowrap;
 }
 
-/* Filler mash: deliberately no number-row symbols, so it never reads as code. */
+/* Filler: plain hashes. */
 .hashes::before {
-  content: "?<??<>=_<?>_-?+_-<~>/?>_>~<-~~==>~?|?>=<=+?~-?+/<-+|=<+~->-/-+/-~~==~?///->=+|-+|~/-_=-~~??_<=?<=_//-//=~+>+~=_/>>-~_=?+~>|+/---=>=~>||>?_>?";
-}
-
-/* Bottom row carries the encoded passphrase in two halves. On wide boxes they
-   run together on one line; when the box is narrower than the full code
-   (51 chars) each half gets its own line so no code symbol is ever clipped. */
-.code-row::before {
-  content: none;
-}
-
-.code-row .fill-a {
-  display: none;
-}
-
-@container (width < 51ch) {
-  .code-row .line {
-    display: block;
-    overflow: hidden;
-  }
-
-  .code-row .fill-a {
-    display: inline;
-  }
+  content: "############################################################################################################################################";
 }
 
 .box-top {
@@ -238,6 +221,37 @@ main {
 .list li::before {
   content: ">";
   flex: none;
+}
+
+.quals {
+  margin-top: 0.35em;
+}
+
+.quals li + li {
+  margin-top: 0.7em;
+}
+
+.qual-title {
+  margin: 0;
+  font-size: 1.15em;
+  font-weight: normal;
+  line-height: 1.15;
+}
+
+.qual-desc {
+  margin: 0.1em 0 0;
+  padding-left: 1em;
+  border-left: 2px solid var(--green-dim);
+  color: var(--mash);
+  text-shadow: var(--glow-mash);
+}
+
+.qual-desc strong {
+  color: var(--green);
+  font-weight: normal;
+  text-shadow: var(--glow);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .hl {
